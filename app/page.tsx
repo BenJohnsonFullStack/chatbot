@@ -15,9 +15,9 @@ export default function Home() {
       {messages.length !== 0 ? (
         <div className="pb-32 pt-5 space-y-5 w-[75%] mx-auto relative">
           {messages.map((message) => (
-            <div key={message.id} className="w-full">
+            <div key={message.id} className="w-full p-1">
               {message.role === "user" ? (
-                <div className="flex items-center gap-x-2">
+                <div className="flex gap-x-2">
                   <div className="bg-gray-500 h-12 w-12 rounded-lg">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,26 @@ export default function Home() {
                   </p>
                 </div>
               ) : (
-                <div>{message.content}</div>
+                <div className="flex gap-x-2 pl-2">
+                  <div className="bg-teal-500 h-10 w-10 rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-full h-full text-white p-1"
+                    >
+                      <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                      <path
+                        fillRule="evenodd"
+                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <p className="rounded-lg p-3 w-full border-teal-500 border-2 text-sm">
+                    {message.content}
+                  </p>
+                </div>
               )}
             </div>
           ))}
