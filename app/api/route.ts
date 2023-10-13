@@ -1,5 +1,6 @@
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { Configuration, OpenAIApi } from "openai-edge";
+import prisma from "../db";
 
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -18,7 +19,16 @@ export async function POST(req: Request) {
     messages: messages,
   });
 
-  const stream = OpenAIStream(response);
+  const stream = OpenAIStream(response, {
+    onCompletion: async (completion: string) => {
+      const data = await prisma.message.create({
+        data: {
+          answer: completion,
+          question: messages,
+        },
+      });
+    },
+  });
 
   return new StreamingTextResponse(stream);
 }
